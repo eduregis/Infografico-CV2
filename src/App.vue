@@ -1,7 +1,6 @@
 <template>
   <div class="screen-container">
     <div class="info-container">
-        <CallToAction />
         <transition name="slide" mode="out-in">
           <router-view></router-view>
         </transition>
@@ -32,10 +31,11 @@ export default {
     }
     .info-container {
         margin: auto;
-        width: 720px;
-        height: 480px;
+        width: 1280px;
+        height: 720px;
         align-self: center;
         background-color: #fff;
         box-shadow:0px 0px 30px black;
+        overflow: hidden;
     }
 </style>
