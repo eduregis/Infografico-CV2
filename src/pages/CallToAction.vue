@@ -64,11 +64,13 @@ export default {
 }
 .map {
   position: absolute;
-  background-color:rgb(226, 115, 115);
+  background-color:rgb(233, 127, 127);
   width: 480px;
   height: 720px;
+  transition: transform 0.2s; 
 }
 .map:hover {
+  transform: scale(1.05);
   background-color:brown;
 }
 .maranhao {
