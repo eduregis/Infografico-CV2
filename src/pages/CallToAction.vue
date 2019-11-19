@@ -64,15 +64,12 @@ export default {
 }
 .map {
   position: absolute;
-  background-color:brown;
+  background-color:rgb(226, 115, 115);
   width: 480px;
   height: 720px;
-  transition: transform 0.2s; 
-  opacity: 60%;   
 }
 .map:hover {
-  transform: scale(1.05);
-  opacity: 100%;
+  background-color:brown;
 }
 .maranhao {
 clip-path: polygon(96px 137px,57px 209px,36px 221px,59px 231px,62px 292px,86px 307px,72px 331px,106px 381px,101px 339px,110px 316px,162px 268px,196px 264px,194px 190px,218px 166px,230px 145px,183px 132px,163px 138px,145px 113px,104px 95px);
