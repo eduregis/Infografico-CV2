@@ -1,22 +1,33 @@
 <template>
-<div class="inline-container">
+<div class="call-to-action-container">
+  <img class="call-to-action-bkg" src="../assets/telas/tela-inicial-01.png"/>
+  <router-link :to="{ name: 'Page1' }"> 
+    <div @mouseover="buttonState = 1" @mouseleave="buttonState = 0" @click="buttonState = 2" class="call-to-action-button">
+      <img v-if="buttonState == 0" src="../assets/btn-inicio/iniciar.png" />
+      <img v-else-if="buttonState == 1" src="../assets/btn-inicio/iniciar-hover.png" />
+      <img v-else src="../assets/btn-inicio/iniciar-click.png" />
+    </div>
+  </router-link>
+</div>
+<!-- <div class="inline-container">
   <div class="map-container">
-    <div v-for="(state, position) in states" :key="position" class="map" :class="state.name"></div>
-  </div>    
-  Call To Action  
+  <div v-for="(state, position) in states" :key="position" class="map" :class="state.name"></div>
+    <img class="titulo-call-to-action" src="../assets/textos/Titulo.png"/>
+  </div>     
   <router-link :to="{ name: 'Page1' }">    
     <button>Page1</button>
   </router-link> 
   <router-link :to="{ name: 'Page2' }">    
     <button>Page2</button>
-  </router-link> 
-</div>
+  </router-link>
+</div> -->
 </template>
 
 <script>
 export default {
   data() {
     return {
+      buttonState: 0,
       states: [
         {
           name: 'maranhao'
@@ -47,12 +58,36 @@ export default {
         },
       ]
     }
-  }
+  },
+  methods: {
+        mouseOver: function(){
+            this.buttonState = 1;   
+        },
+        mouseClicked: function(){
+            this.buttonState = 2;   
+        }
+    }
 }
 
 </script>
 
 <style scoped>
+.call-to-action-container {
+  position: relative;  
+}
+
+.call-to-action-bkg{
+  position: absolute;
+  z-index: 1;
+}
+
+.call-to-action-button{
+  position: absolute;
+  z-index: 2;
+  left: 748px;
+  top: 445px;
+}
+
 .inline-container{
   display: flex;
 }
@@ -64,49 +99,56 @@ export default {
 }
 .map {
   position: absolute;
-  background-color:rgb(233, 127, 127);
+  background-color:#801436;
+  left: 50px;
   width: 480px;
   height: 720px;
   transition: transform 0.2s; 
 }
-.map:hover {
+
+.titulo-call-to-action{
+  position: absolute;
+  top: 239px;
+  left: 562px;
+}
+/* .map:hover {
   transform: scale(1.05);
   background-color:brown;
-}
+} */
 .maranhao {
-clip-path: polygon(96px 137px,57px 209px,36px 221px,59px 231px,62px 292px,86px 307px,72px 331px,106px 381px,101px 339px,110px 316px,162px 268px,196px 264px,194px 190px,218px 166px,230px 145px,183px 132px,163px 138px,145px 113px,104px 95px);
+clip-path: polygon(61px 17px,59px 33px,54px 48px,48px 59px,40px 72px,35px 81px,30px 92px,25px 101px,20px 106px,9px 113px,6px 115px,13px 118px,26px 123px,26px 167px,32px 177px,37px 181px,45px 184px,46px 187px,43px 193px,37px 204px,37px 209px,43px 216px,64px 248px,63px 239px,61px 227px,61px 213px,63px 204px,67px 196px,76px 186px,109px 156px,116px 153px,138px 151px,139px 146px,139px 88px,159px 67px,167px 54px,167px 51px,135px 42px,125px 41px,118px 44px,112px 44px,103px 30px,92px 21px,76px 14px,65px 10px);
 }
 
 .piaui{
-clip-path: polygon(221px 167px,199px 190px,200px 267px,164px 273px,115px 317px,105px 340px,110px 384px,130px 401px,164px 397px,178px 374px,185px 348px,207px 363px,269px 318px,282px 273px,263px 258px,258px 187px,250px 172px,252px 150px,234px 144px);
+clip-path: polygon(168px 61px,162px 69px,142px 90px,144px 144px,143px 152px,134px 154px,113px 158px,88px 180px,67px 203px,65px 221px,68px 247px,82px 262px,99px 263px,112px 260px,120px 250px,127px 233px,130px 220px,137px 225px,148px 231px,171px 215px,197px 198px,203px 190px,205px 181px,211px 161px,210px 156px,205px 153px,198px 149px,195px 140px,193px 107px,190px 86px,185px 73px,186px 56px,172px 52px);
 }
 
 .ceara {
-clip-path: polygon(254px 171px,264px 187px,267px 258px,287px 275px,279px 292px,299px 289px,323px 303px,332px 295px,333px 264px,376px 208px,320px 163px,290px 145px,255px 152px);
+clip-path: polygon(188px 70px,193px 82px,196px 87px,198px 113px,199px 132px,201px 145px,215px 157px,216px 162px,213px 168px,211px 174px,219px 171px,231px 174px,240px 181px,247px 181px,252px 178px,252px 167px,254px 154px,264px 138px,280px 114px,287px 107px,287px 103px,252px 73px,242px 66px,218px 53px,189px 58px);
 }
 
 .rioGrandeDoNorte {
-clip-path: polygon(370px 250px,371px 270px,397px 277px,407px 260px,452px 266px,434px 220px,403px 221px,377px 211px,338px 262px);
+clip-path: polygon(279px 125px,272px 133px,262px 147px,278px 142px,286px 141px,287px 148px,287px 155px,290px 159px,305px 160px,311px 157px,313px 149px,317px 148px,324px 148px,336px 150px,352px 152px,350px 147px,345px 131px,341px 119px,337px 116px,320px 116px,301px 112px,291px 108px);
 }
 
 .paraiba{
-clip-path: polygon(367px 256px,366px 275px,401px 280px,409px 264px,449px 266px,454px 292px,399px 306px,396px 318px,379px 319px,382px 294px,367px 288px,354px 306px,334px 299px,338px 267px);
+clip-path: polygon(256px 163px,256px 180px,270px 185px,275px 180px,279px 174px,285px 174px,293px 176px,293px 196px,305px 195px,308px 189px,309px 184px,355px 175px,352px 155px,321px 151px,317px 152px,313px 161px,310px 164px,293px 161px,285px 159px,283px 153px,282px 145px,260px 153px);
 }
 
 .pernambuco{
-clip-path: polygon(400px 308px,398px 321px,377px 321px,376px 298px,366px 295px,355px 310px,333px 301px,324px 307px,299px 292px,277px 295px,274px 319px,252px 335px,272px 358px,293px 346px,299px 333px,312px 329px,349px 354px,360px 340px,390px 353px,445px 338px,453px 317px,454px 295px);
+clip-path: polygon(209px 181px,207px 191px,199px 201px,189px 209px,200px 225px,205px 228px,220px 217px,224px 208px,231px 205px,237px 204px,264px 223px,267px 223px,276px 214px,280px 214px,298px 223px,312px 222px,347px 213px,355px 193px,356px 179px,312px 189px,309px 198px,299px 199px,290px 198px,289px 179px,281px 179px,272px 190px,257px 184px,252px 184px,246px 187px,224px 175px,210px 178px);
 }
 
 .alagoas{
-clip-path: polygon(392px 355px,359px 341px,351px 356px,364px 367px,388px 373px,402px 396px,443px 341px);
+clip-path: polygon(280px 235px,287px 237px,300px 242px,305px 248px,311px 260px,316px 255px,335px 230px,346px 216px,322px 223px,303px 228px,283px 219px,276px 219px,269px 228px);
 }
 
 .sergipe{
-clip-path: polygon(364px 369px,387px 377px,399px 394px,384px 407px,374px 426px,355px 421px,346px 396px,357px 392px,350px 360px);
+clip-path: polygon(270px 235px,274px 257px,272px 259px,267px 260px,265px 262px,271px 279px,277px 284px,290px 286px,294px 278px,302px 266px,309px 261px,300px 247px,294px 243px,282px 239px,269px 231px);
 }
 
 .bahia{
-clip-path: polygon(127px 404px,166px 403px,182px 379px,188px 354px,206px 368px,250px 335px,273px 362px,297px 347px,301px 335px,311px 332px,347px 357px,353px 390px,342px 394px,353px 425px,372px 430px,347px 469px,338px 471px,328px 481px,324px 529px,328px 567px,318px 593px,317px 637px,277px 618px,276px 590px,295px 571px,284px 556px,257px 554px,186px 525px,179px 511px,153px 510px,109px 536px,90px 406px,110px 387px);
+clip-path: polygon(131px 230px,131px 237px,120px 259px,115px 266px,89px 268px,79px 265px,73px 260px,69px 254px,65px 254px,55px 264px,52px 269px,67px 379px,86px 369px,92px 364px,102px 358px,124px 358px,128px 367px,132px 371px,171px 386px,192px 394px,209px 396px,215px 400px,221px 406px,220px 409px,212px 416px,208px 420px,205px 430px,207px 442px,207px 448px,226px 456px,241px 464px,242px 447px,242px 430px,247px 413px,251px 405px,247px 376px,248px 358px,250px 341px,252px 332px,258px 325px,267px 322px,286px 292px,285px 289px,270px 285px,266px 279px,265px 271px,261px 259px,263px 257px,268px 256px,266px 238px,265px 230px,258px 223px,244px 213px,234px 208px,227px 210px,223px 220px,211px 228px,202px 231px,186px 211px,154px 233px,148px 236px,133px 227px);
 }
 
 </style>

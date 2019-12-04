@@ -34,7 +34,7 @@ export default {
         width: 1280px;
         height: 720px;
         align-self: center;
-        background-color: #fff;
+        background-color: #2D132C;
         box-shadow:0px 0px 30px black;
         overflow: hidden;
     }
