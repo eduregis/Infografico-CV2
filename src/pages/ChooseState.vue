@@ -3,11 +3,13 @@
     <img class="region-title" src="../assets/textos/escolha-um-estado.png" />
     <img class="region-information" src="../assets/textos/vocesabia.png" />
     <img class="footer-bar" src="../assets/barras/barra-teste.png" />
-    <div @mouseover="buttonState = 1" @mouseleave="buttonState = 0" @click="buttonState = 2" class="test-button">
-      <img v-if="buttonState == 0" src="../assets/barras/btn-teste.png" />
-      <img v-else-if="buttonState == 1" src="../assets/barras/btn-teste-hover.png" />
-      <img v-else src="../assets/barras/btn-teste-click.png" />
-    </div>
+    <router-link :to="{ name: 'Test' }">
+      <div @mouseover="buttonState = 1" @mouseleave="buttonState = 0" @click="buttonState = 2" class="test-button">
+        <img v-if="buttonState == 0" src="../assets/barras/btn-teste.png" />
+        <img v-else-if="buttonState == 1" src="../assets/barras/btn-teste-hover.png" />
+        <img v-else src="../assets/barras/btn-teste-click.png" />
+      </div>
+    </router-link>
     <div class="region-container">
       <div class="map-container">
         <div v-for="(state, position) in states" :key="position" class="map" :class="state.name"></div>
@@ -90,7 +92,7 @@ export default {
   position: relative;
   top: 159px;
   left: 100px;
-  
+  -webkit-filter: drop-shadow(1px 1px 4px rgba(0,0,0,0.75)) !important;  
 }
 .map {
   position: absolute;

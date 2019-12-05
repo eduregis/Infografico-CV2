@@ -4,7 +4,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import CallToAction from './pages/CallToAction.vue'
 import ChooseState from './pages/ChooseState.vue'
-import Page2 from './pages/Page2.vue'
+import Test from './pages/Test.vue'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -18,13 +18,13 @@ const routes = [
   },
   {
     name: 'ChooseState',
-    path: '/chooseState',
+    path: '/geral',
     component: ChooseState
   },
   {
-    name: 'Page2',
-    path: '/page2',
-    component: Page2
+    name: 'Test',
+    path: '/teste',
+    component: Test
   },  
 ];
 
