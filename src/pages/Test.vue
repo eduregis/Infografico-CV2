@@ -4,7 +4,7 @@
       <img v-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" />
       <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" />
       <img v-else src="../assets/btn-fluxo/voltar-click.png" />
-    </div>       
+    </div>    
     <!-- Primeira Pergunta -->
     <div v-if="carouselIndex == 1">
       <img class="title-section-1" src="../assets/textos/voce-se-considera-mulher.png" />
@@ -38,6 +38,18 @@
       <img v-else-if="nextButtonState == 1" src="../assets/btn-fluxo/avancar-hover.png" />
       <img v-else src="../assets/btn-fluxo/avancar-click.png" />
     </div>
+    <!-- Terceira Pergunta -->
+    <div v-if="carouselIndex == 3">
+      <img class="title-section-3" src="../assets/textos/qual-seu-estado.png" />
+      <div class="question-map-container">
+        <div v-for="(state, position) in states" :key="position" class="map" :class="state.name" @click="changeStateName(state)"></div>
+      </div>  
+    </div>
+    <div @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button">
+      <img v-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" />
+      <img v-else-if="nextButtonState == 1" src="../assets/btn-fluxo/avancar-hover.png" />
+      <img v-else src="../assets/btn-fluxo/avancar-click.png" />
+    </div>
     <div class="carousel">
       <img v-if="carouselIndex == 1" src="../assets/carrossel/1.png" />
       <img v-else-if="carouselIndex == 2" src="../assets/carrossel/2.png" />
@@ -45,7 +57,7 @@
       <img v-else-if="carouselIndex == 4" src="../assets/carrossel/4.png" />
       <img v-else-if="carouselIndex == 5" src="../assets/carrossel/5.png" />
       <img v-else src="../assets/carrossel/1-5.png" />
-    </div>
+    </div>    
     <!-- Barra de rodapé -->
     <img class="footer-bar" src="../assets/barras/barra-geral.png" />
     <router-link :to="{ name: 'ChooseState' }">
@@ -56,9 +68,7 @@
       </div>
     </router-link>
     <!-- <div class="region-container">
-      <div class="map-container">
-        <div v-for="(state, position) in states" :key="position" class="map" :class="state.name"></div>
-      </div>  
+      
     </div> -->
   </div>
 </template>
@@ -76,7 +86,37 @@ export default {
       secondChoiceState: 0,
       // respostas
       isWoman: null,
-      isBlack: null
+      isBlack: null,
+      stateName: '',
+      states: [
+            {
+              name: 'maranhao'
+            },
+            {
+              name: 'piaui'
+            },
+            {
+              name: 'ceara'
+            },
+            {
+              name: 'rioGrandeDoNorte'
+            },
+            {
+              name: 'paraiba'
+            },
+            {
+              name: 'pernambuco'
+            },
+            {
+              name: 'alagoas'
+            },
+            {
+              name: 'sergipe'
+            },
+            {
+              name: 'bahia'
+            },
+          ]
     }
   },
   methods: {
@@ -102,6 +142,10 @@ export default {
       }
       this.firstChoiceState = 2;
       
+    },
+    changeStateName(state){
+      this.stateName = state.name
+      this.carouselIndex++
     },
     prevQuestion(){
       if(this.carouselIndex == 1.5 || this.carouselIndex == 1){
@@ -145,6 +189,12 @@ left: 590px;}
 .title-section-2 {
   position: absolute;
   width: 442px;
+  top: 70px;
+  left: 439px;
+}
+.title-section-3 {
+  position: absolute;
+  width: 482px;
   top: 70px;
   left: 439px;
 }
