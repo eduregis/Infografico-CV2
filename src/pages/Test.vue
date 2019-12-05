@@ -84,14 +84,13 @@
       <div v-if="!isMostDangerous() && !isBlack" class="most-dangerous percentage">
         <img :src="states[8].src1"/>
       </div>
-      <div v-if="!isLessDangerous() && isBlack" class="less-dangerous state-name"><h3>{{ states[1].title }}</h3></div>
-      <div v-if="!isLessDangerous() && !isBlack" class="less-dangerous state-name"><h3>{{ states[6].title }}</h3></div>
-      <div class="middle-percentage state-name"><h3>{{ selectedState.title }}</h3></div>
-      <div v-if="!isMostDangerous()" class="most-dangerous state-name"><h3>{{ states[8].title }}</h3></div>
+      <div v-if="!isLessDangerous() && isBlack" class="less-dangerous state-name"><h4>{{ states[1].title }}</h4></div>
+      <div v-if="!isLessDangerous() && !isBlack" class="less-dangerous state-name"><h4>{{ states[6].title }}</h4></div>
+      <div class="middle-percentage state-name"><h4>{{ selectedState.title }}</h4></div>
+      <div v-if="!isMostDangerous()" class="most-dangerous state-name"><h4>{{ states[8].title }}</h4></div>
     </div>
-    <div @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button">
-      <img v-if="!isNextAvailable()" src="../assets/btn-fluxo/avancar-disabled.png" />
-      <img v-else-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" />
+    <div v-if="carouselIndex == 4" @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button">
+      <img v-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" />
       <img v-else-if="nextButtonState == 1" src="../assets/btn-fluxo/avancar-hover.png" />
       <img v-else src="../assets/btn-fluxo/avancar-click.png" />
     </div>
@@ -282,40 +281,8 @@ export default {
       this.prevButtonState = 2
     },
     nextQuestion(){
-      if(this.isNextAvailable()){
-        if(this.carouselIndex == 1.5){
-          this.carouselIndex = 2;
-        } else {
-          if(this.carouselIndex < 5)
-            this.carouselIndex++;
-        }
-        this.nextButtonState = 2
-      }
-    },
-    isNextAvailable(){
-      switch(this.carouselIndex){
-        case 1:
-          if(this.isWoman != null){
-            return true
-          }
-          break;
-        case 2:
-          if(this.isBlack != null){
-            return true
-          }
-          break;
-        case 3:
-          if(this.selectedState.name != ''){
-            return true
-          }
-          break;
-        case 1.5:
-          if(this.selectedRelation != ''){
-            return true
-          }
-          break;
-      }
-      return false;
+      this.carouselIndex = 5
+      this.nextButtonState = 2      
     },    
     isMostDangerous(){
       if((this.selectedState.name == 'bahia')){
