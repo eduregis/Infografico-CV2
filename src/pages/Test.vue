@@ -4,7 +4,7 @@
       <img v-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" />
       <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" />
       <img v-else src="../assets/btn-fluxo/voltar-click.png" />
-    </div>    
+    </div>   
     <!-- Primeira Seção -->
     <div v-show="carouselIndex == 1">
       <img class="title-section-1" src="../assets/textos/voce-se-considera-mulher.png" />
@@ -215,6 +215,7 @@ export default {
     chooseRelation(relation){
       relation.state = 2;
       this.selectedRelation = relation.name;
+      this.carouselIndex = 2;
     },
     prevQuestion(){
       if(this.carouselIndex == 1.5 || this.carouselIndex == 1){
