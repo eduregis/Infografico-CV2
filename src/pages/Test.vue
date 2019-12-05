@@ -6,7 +6,7 @@
       <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" />
       <img v-else src="../assets/btn-fluxo/voltar-click.png" />
     </div>   
-    {{ isWoman }} {{ isBlack }} {{ stateName }}
+    {{ isWoman }} {{ isBlack }} {{ stateName }} {{ selectedRelation }}
     <!-- Primeira Seção -->
     <div v-show="carouselIndex == 1">
       <img class="title-section-1" src="../assets/textos/voce-se-considera-mulher.png" />
@@ -268,6 +268,10 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('MartianB-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+}
 .layout-container{
   position: relative;
 }
@@ -289,6 +293,7 @@ left: 590px;}
   position: relative;
 }
 .relation {
+  font-family: 'MyWebFont', Fallback, sans-serif;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -297,7 +302,6 @@ left: 590px;}
   position: absolute;
   z-index: 2;
   color: white;
-  text-transform: uppercase;
 }
 .mae {
   top: 256px;
