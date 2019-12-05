@@ -5,8 +5,8 @@
       <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" />
       <img v-else src="../assets/btn-fluxo/voltar-click.png" />
     </div>    
-    <!-- Primeira Pergunta -->
-    <div v-if="carouselIndex == 1">
+    <!-- Primeira Seção -->
+    <div v-show="carouselIndex == 1">
       <img class="title-section-1" src="../assets/textos/voce-se-considera-mulher.png" />
       <div @mouseover="firstChoiceState = 1" @mouseleave="firstChoiceState = 0" @click="firstChoice()" class="first-choice-button">
         <img v-if="firstChoiceState == 0" src="../assets/btn-genero/sim.png" />
@@ -19,8 +19,26 @@
         <img v-else src="../assets/btn-genero/nao-click.png" />
       </div>
     </div>
-    <!-- Segunda Pergunta -->
-    <div v-if="carouselIndex == 2">
+    <!-- Seção Extra -->
+    <div v-show="carouselIndex == 1.5">
+      <img class="title-section-3" src="../assets/textos/quem-e-a-mulher-mais-proxima.png" />
+      <div class="relation-container">
+        <div v-for="(relation, position) in relations" 
+             :key="position"
+             @mouseover="relation.state = 1" 
+             @mouseleave="relation.state = 0" 
+             @click="chooseRelation(relation)" 
+             class="relation"
+             :class="relation.title">
+             <h1 class="relation-title">{{ relation.name }}</h1>
+          <img v-if="relation.state == 0" src="../assets/btn-mulher-proxima/mulher-proxima.png" />
+          <img v-else-if="relation.state == 1" src="../assets/btn-mulher-proxima/mulher-proxima-hover.png" />
+          <img v-else src="../assets/btn-mulher-proxima/mulher-proxima-click.png" />
+        </div>
+      </div>  
+    </div>
+    <!-- Segunda Seção -->
+    <div v-show="carouselIndex == 2">
       <img class="title-section-2" src="../assets/textos/qual-sua-etnia.png" />
       <div @mouseover="firstChoiceState = 1" @mouseleave="firstChoiceState = 0" @click="firstChoice()" class="first-choice-button">
         <img v-if="firstChoiceState == 0" src="../assets/btn-etnia/negra.png" />
@@ -32,24 +50,26 @@
         <img v-else-if="secondChoiceState == 1" src="../assets/btn-etnia/outro-hover.png" />
         <img v-else src="../assets/btn-etnia/outro-click.png" />
       </div>
-    </div>
-    <div @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button">
-      <img v-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" />
-      <img v-else-if="nextButtonState == 1" src="../assets/btn-fluxo/avancar-hover.png" />
-      <img v-else src="../assets/btn-fluxo/avancar-click.png" />
-    </div>
-    <!-- Terceira Pergunta -->
-    <div v-if="carouselIndex == 3">
+    </div>    
+    <!-- Terceira Seção -->
+    <div v-show="carouselIndex == 3">
       <img class="title-section-3" src="../assets/textos/qual-seu-estado.png" />
       <div class="question-map-container">
         <div v-for="(state, position) in states" :key="position" class="map" :class="state.name" @click="changeStateName(state)"></div>
       </div>  
     </div>
+    <!-- Quarta Seção -->
+    <div v-show="carouselIndex == 4">
+      <img class="title-section-4" src="../assets/textos/resultado.png" />
+      <img class="subtitle-section-4" src="../assets/textos/resultado-legenda.png" />
+      <img class="resultado" src="../assets/cards/cards-seu-estado.png" />
+    </div>
     <div @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button">
       <img v-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" />
       <img v-else-if="nextButtonState == 1" src="../assets/btn-fluxo/avancar-hover.png" />
       <img v-else src="../assets/btn-fluxo/avancar-click.png" />
     </div>
+    <!-- Carrossel -->
     <div class="carousel">
       <img v-if="carouselIndex == 1" src="../assets/carrossel/1.png" />
       <img v-else-if="carouselIndex == 2" src="../assets/carrossel/2.png" />
@@ -66,10 +86,7 @@
         <img v-else-if="buttonState == 1" src="../assets/barras/btn-mapa-hover.png" />
         <img v-else src="../assets/barras/btn-mapa-click.png" />
       </div>
-    </router-link>
-    <!-- <div class="region-container">
-      
-    </div> -->
+    </router-link>    
   </div>
 </template>
 
@@ -87,7 +104,55 @@ export default {
       // respostas
       isWoman: null,
       isBlack: null,
+      selectedRelation: '',
       stateName: '',
+      relations: [
+        {
+          name: 'Mãe',
+          title:'mae',
+          state: 0,
+        },
+        {
+          name: 'Namorada',
+          title:'namorada',
+          state: 0,
+        },
+        {
+          name: 'Tia',
+          title:'tia',
+          state: 0,
+        },
+        {
+          name: 'Irmã',
+          title:'irma',
+          state: 0,
+        },
+        {
+          name: 'Esposa',
+          title:'esposa',
+          state: 0,
+        },
+        {
+          name: 'Prima',
+          title:'prima',
+          state: 0,
+        },
+        {
+          name: 'Avó',
+          title:'avo',
+          state: 0,
+        },
+        {
+          name: 'Amiga',
+          title:'amiga',
+          state: 0,
+        },
+        {
+          name: 'Sobrinha',
+          title:'sobrinha',
+          state: 0,
+        }
+      ],
       states: [
             {
               name: 'maranhao'
@@ -147,6 +212,10 @@ export default {
       this.stateName = state.name
       this.carouselIndex++
     },
+    chooseRelation(relation){
+      relation.state = 2;
+      this.selectedRelation = relation.name;
+    },
     prevQuestion(){
       if(this.carouselIndex == 1.5 || this.carouselIndex == 1){
         this.carouselIndex = 1;
@@ -186,6 +255,57 @@ left: 590px;}
   top: 70px;
   left: 221px;
 }
+.relation-container {
+  position: relative;
+}
+.relation {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+.relation-title{
+  position: absolute;
+  z-index: 2;
+  color: white;
+  text-transform: uppercase;
+}
+.mae {
+  top: 256px;
+  left: 190px;
+}
+.namorada {
+  top: 256px;
+  left: 493px;
+}
+.tia {
+  top: 256px;
+  left:800px;
+}
+.irma {
+  top: 347px;
+  left: 190px;
+}
+.esposa {
+  top: 347px;
+  left: 493px;
+}
+.prima {
+  top: 347px;
+  left:800px;
+}
+.avo {
+  top: 442px;
+  left: 190px;
+}
+.amiga {
+  top: 442px;
+  left: 493px;
+}
+.sobrinha {
+  top: 442px;
+  left:800px;
+}
+
 .title-section-2 {
   position: absolute;
   width: 442px;
@@ -197,6 +317,21 @@ left: 590px;}
   width: 482px;
   top: 70px;
   left: 439px;
+}
+.title-section-4 {
+  position: absolute;
+  top: 70px;
+  left: 514px;
+}
+.subtitle-section-4 {
+  position: absolute;
+  top: 139px;
+  left: 282px;
+}
+.resultado {
+  position: absolute;
+  top: 195px;
+  left: 187px;
 }
 .first-choice-button {
   position: absolute;
