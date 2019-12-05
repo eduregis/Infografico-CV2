@@ -1,22 +1,36 @@
 <template>
-  <div class="layout-container">    
+  <div class="layout-container"> 
     <div @mouseover="prevButtonState = 1" @mouseleave="prevButtonState = 0" @click="prevQuestion()" class="prev-button">
       <img v-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" />
       <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" />
       <img v-else src="../assets/btn-fluxo/voltar-click.png" />
-    </div>
+    </div>       
     <!-- Primeira Pergunta -->
     <div v-if="carouselIndex == 1">
-      <img class="title-section" src="../assets/textos/voce-se-considera-mulher.png" />
-      <div @mouseover="buttonGenderState1 = 1" @mouseleave="buttonGenderState1 = 0" @click="genderYes()" class="gender-yes-button">
-        <img v-if="buttonGenderState1 == 0" src="../assets/btn-genero/sim.png" />
-        <img v-else-if="buttonGenderState1 == 1" src="../assets/btn-genero/sim-hover.png" />
+      <img class="title-section-1" src="../assets/textos/voce-se-considera-mulher.png" />
+      <div @mouseover="firstChoiceState = 1" @mouseleave="firstChoiceState = 0" @click="firstChoice()" class="first-choice-button">
+        <img v-if="firstChoiceState == 0" src="../assets/btn-genero/sim.png" />
+        <img v-else-if="firstChoiceState == 1" src="../assets/btn-genero/sim-hover.png" />
         <img v-else src="../assets/btn-genero/sim-click.png" />
       </div>
-      <div @mouseover="buttonGenderState2 = 1" @mouseleave="buttonGenderState2 = 0" @click="genderNo()" class="gender-no-button">
-        <img v-if="buttonGenderState2 == 0" src="../assets/btn-genero/nao.png" />
-        <img v-else-if="buttonGenderState2 == 1" src="../assets/btn-genero/nao-hover.png" />
+      <div @mouseover="secondChoiceState = 1" @mouseleave="secondChoiceState = 0" @click="secondChoice()" class="second-choice-button">
+        <img v-if="secondChoiceState == 0" src="../assets/btn-genero/nao.png" />
+        <img v-else-if="secondChoiceState == 1" src="../assets/btn-genero/nao-hover.png" />
         <img v-else src="../assets/btn-genero/nao-click.png" />
+      </div>
+    </div>
+    <!-- Segunda Pergunta -->
+    <div v-if="carouselIndex == 2">
+      <img class="title-section-2" src="../assets/textos/qual-sua-etnia.png" />
+      <div @mouseover="firstChoiceState = 1" @mouseleave="firstChoiceState = 0" @click="firstChoice()" class="first-choice-button">
+        <img v-if="firstChoiceState == 0" src="../assets/btn-etnia/negra.png" />
+        <img v-else-if="firstChoiceState == 1" src="../assets/btn-etnia/negra-hover.png" />
+        <img v-else src="../assets/btn-etnia/negra-click.png" />
+      </div>
+      <div @mouseover="secondChoiceState = 1" @mouseleave="secondChoiceState = 0" @click="secondChoice()" class="second-choice-button">
+        <img v-if="secondChoiceState == 0" src="../assets/btn-etnia/outro.png" />
+        <img v-else-if="secondChoiceState == 1" src="../assets/btn-etnia/outro-hover.png" />
+        <img v-else src="../assets/btn-etnia/outro-click.png" />
       </div>
     </div>
     <div @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button">
@@ -58,22 +72,36 @@ export default {
       carouselIndex: 1,
       prevButtonState: 0,
       nextButtonState: 0,
-      buttonGenderState1: 0,
-      buttonGenderState2: 0,
+      firstChoiceState: 0,
+      secondChoiceState: 0,
       // respostas
-      isWoman: false
+      isWoman: null,
+      isBlack: null
     }
   },
   methods: {
-    genderYes(){
-      this.isWoman= true;
-      this.buttonGenderState1 = 2;
-      this.carouselIndex = 2;
+    firstChoice(){
+      if(this.carouselIndex == 1){
+        this.isWoman = true;
+      }
+      if(this.carouselIndex == 2){
+        this.isBlack = true;
+      }
+      this.firstChoiceState = 2;
+      this.carouselIndex++;
     },
-    genderNo(){
-      this.isWoman= false;
-      this.buttonGenderState1 = 2;
-      this.carouselIndex = 1.5;
+    secondChoice(){
+      if(this.carouselIndex == 1){
+        this.isWoman = false;
+        this.carouselIndex = 1.5;
+      }else {
+        this.carouselIndex++;
+      }
+      if(this.carousel == 2){
+        this.isBlack = false;
+      }
+      this.firstChoiceState = 2;
+      
     },
     prevQuestion(){
       if(this.carouselIndex == 1.5 || this.carouselIndex == 1){
@@ -92,7 +120,7 @@ export default {
       }
       this.nextButtonState = 2
     }
-  }
+  }  
 }
 </script>
 
@@ -109,17 +137,23 @@ left: 590px;}
   position: absolute;
   top: 647px;
 }
-.title-section {
+.title-section-1 {
   position: absolute;
   top: 70px;
   left: 221px;
 }
-.gender-yes-button {
+.title-section-2 {
+  position: absolute;
+  width: 442px;
+  top: 70px;
+  left: 439px;
+}
+.first-choice-button {
   position: absolute;
   top: 236px;
   left: 190px;
 }
-.gender-no-button {
+.second-choice-button {
   position: absolute;
   top: 236px;
   left: 666px;
