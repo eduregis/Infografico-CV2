@@ -5,8 +5,7 @@
       <img v-else-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" />
       <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" />
       <img v-else src="../assets/btn-fluxo/voltar-click.png" />
-    </div>   
-    {{ isWoman }} {{ isBlack }} {{ stateName }} {{ selectedRelation }}
+    </div>  
     <!-- Primeira Seção -->
     <div v-show="carouselIndex == 1">
       <img class="title-section-1" src="../assets/textos/voce-se-considera-mulher.png" />
@@ -64,7 +63,31 @@
     <div v-show="carouselIndex == 4">
       <img class="title-section-4" src="../assets/textos/resultado.png" />
       <img class="subtitle-section-4" src="../assets/textos/resultado-legenda.png" />
-      <img class="resultado" src="../assets/cards/cards-seu-estado.png" />
+      <img v-if="isLessDangerous()" class="resultado" src="../assets/cards/cards-menos-perigoso.png" />
+      <img v-else-if="isMostDangerous()" class="resultado" src="../assets/cards/cards-mais-perigoso.png" />
+      <img v-else class="resultado" src="../assets/cards/cards-seu-estado.png" />
+      <div v-if="!isLessDangerous() && isBlack" class="less-dangerous percentage">
+        <img :src="states[1].src2"/>
+      </div>
+      <div v-if="isBlack" class="middle-percentage percentage">
+        <img :src="selectedState.src2"/>        
+      </div>
+      <div v-if="!isMostDangerous() && isBlack" class="most-dangerous percentage">
+        <img :src="states[8].src2"/>
+      </div>
+      <div v-if="!isLessDangerous() && !isBlack" class="less-dangerous percentage">
+        <img :src="states[6].src1"/>
+      </div>
+      <div v-if="!isBlack" class="middle-percentage percentage">
+        <img :src="selectedState.src1"/>
+      </div>
+      <div v-if="!isMostDangerous() && !isBlack" class="most-dangerous percentage">
+        <img :src="states[8].src1"/>
+      </div>
+      <div v-if="!isLessDangerous() && isBlack" class="less-dangerous state-name"><h3>{{ states[1].title }}</h3></div>
+      <div v-if="!isLessDangerous() && !isBlack" class="less-dangerous state-name"><h3>{{ states[6].title }}</h3></div>
+      <div class="middle-percentage state-name"><h3>{{ selectedState.title }}</h3></div>
+      <div v-if="!isMostDangerous()" class="most-dangerous state-name"><h3>{{ states[8].title }}</h3></div>
     </div>
     <div @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button">
       <img v-if="!isNextAvailable()" src="../assets/btn-fluxo/avancar-disabled.png" />
@@ -108,7 +131,11 @@ export default {
       isWoman: null,
       isBlack: null,
       selectedRelation: '',
-      stateName: '',
+      selectedState: {
+        name: '',
+        src1: '',
+        src2: ''
+      },
       relations: [
         {
           name: 'Mãe',
@@ -158,31 +185,58 @@ export default {
       ],
       states: [
             {
-              name: 'maranhao'
+              name: 'maranhao',
+              title: 'Maranhão',
+              src1: require('@/assets/porcentagens/mulheres-nao-negras/maranhao.png'),
+              src2: require('@/assets/porcentagens/mulheres-negras/maranhao.png')
             },
             {
-              name: 'piaui'
+              name: 'piaui',
+              title: 'Piauí',
+              src1: require('@/assets/porcentagens/mulheres-nao-negras/piaui.png'),
+              src2: require('@/assets/porcentagens/mulheres-negras/piaui.png')
             },
             {
-              name: 'ceara'
+              name: 'ceara',
+              title: 'Ceará',
+              src1: require('@/assets/porcentagens/mulheres-nao-negras/ceara.png'),
+              src2: require('@/assets/porcentagens/mulheres-negras/ceara.png')
             },
             {
-              name: 'rioGrandeDoNorte'
+              name: 'rioGrandeDoNorte',
+              title: 'Rio Grande do Norte',
+              src1: require('@/assets/porcentagens/mulheres-nao-negras/riograndedonorte.png'),
+              src2: require('@/assets/porcentagens/mulheres-negras/riograndedonorte.png')
             },
             {
-              name: 'paraiba'
+              name: 'paraiba',
+              title: 'Paraíba',
+              src1: require('@/assets/porcentagens/mulheres-nao-negras/paraiba.png'),
+              src2: require('@/assets/porcentagens/mulheres-negras/paraiba.png')
             },
             {
-              name: 'pernambuco'
+              name: 'pernambuco',
+              title: 'Pernambuco',
+              src1: require('@/assets/porcentagens/mulheres-nao-negras/pernambuco.png'),
+              src2: require('@/assets/porcentagens/mulheres-negras/pernambuco.png')
             },
             {
-              name: 'alagoas'
+              name: 'alagoas',
+              title: 'Alagoas',
+              src1: require('@/assets/porcentagens/mulheres-nao-negras/alagoas.png'),
+              src2: require('@/assets/porcentagens/mulheres-negras/alagoas.png')
             },
             {
-              name: 'sergipe'
+              name: 'sergipe',
+              title: 'Sergipe',
+              src1: require('@/assets/porcentagens/mulheres-nao-negras/sergipe.png'),
+              src2: require('@/assets/porcentagens/mulheres-negras/sergipe.png')
             },
             {
-              name: 'bahia'
+              name: 'bahia',
+              title: 'Bahia',
+              src1: require('@/assets/porcentagens/mulheres-nao-negras/bahia.png'),
+              src2: require('@/assets/porcentagens/mulheres-negras/bahia.png')
             },
           ]
     }
@@ -211,7 +265,7 @@ export default {
       
     },
     changeStateName(state){
-      this.stateName = state.name
+      this.selectedState = state
       this.carouselIndex++
     },
     chooseRelation(relation){
@@ -251,7 +305,7 @@ export default {
           }
           break;
         case 3:
-          if(this.stateName != ''){
+          if(this.selectedState.name != ''){
             return true
           }
           break;
@@ -262,6 +316,18 @@ export default {
           break;
       }
       return false;
+    },    
+    isMostDangerous(){
+      if((this.selectedState.name == 'bahia')){
+        return true
+      }
+      return false
+    },
+    isLessDangerous(){
+      if(((this.isBlack) && (this.selectedState.name == 'piaui')) || ((!this.isBlack) && (this.selectedState.name == 'alagoas'))){
+        return true
+      }
+      return false
     }
   }  
 }
@@ -366,6 +432,34 @@ left: 590px;}
   position: absolute;
   top: 195px;
   left: 187px;
+}
+.percentage {
+  position: absolute;
+  z-index: 3;
+  top: 325px;
+  width: 235px;
+  display: flex;
+  justify-content: center;
+}
+.less-dangerous {
+  left: 221px;
+}
+.middle-percentage { 
+  left: 521px;  
+}
+.most-dangerous {
+  left: 835px;
+}
+.state-name {
+  position: absolute;
+  color: #2D132C;;
+  top: 515px;
+  width: 235px;
+  display: flex;
+  justify-content: center;
+}
+.your-state-name {
+  left: 521px;
 }
 .first-choice-button {
   position: absolute;
