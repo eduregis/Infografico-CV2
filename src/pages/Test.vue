@@ -1,10 +1,12 @@
 <template>
   <div class="layout-container"> 
     <div @mouseover="prevButtonState = 1" @mouseleave="prevButtonState = 0" @click="prevQuestion()" class="prev-button">
-      <img v-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" />
+      <img v-if="carouselIndex == 1" src="../assets/btn-fluxo/voltar-disabled.png" />
+      <img v-else-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" />
       <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" />
       <img v-else src="../assets/btn-fluxo/voltar-click.png" />
     </div>   
+    {{ isWoman }} {{ isBlack }} {{ stateName }}
     <!-- Primeira Seção -->
     <div v-show="carouselIndex == 1">
       <img class="title-section-1" src="../assets/textos/voce-se-considera-mulher.png" />
@@ -65,7 +67,8 @@
       <img class="resultado" src="../assets/cards/cards-seu-estado.png" />
     </div>
     <div @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button">
-      <img v-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" />
+      <img v-if="!isNextAvailable()" src="../assets/btn-fluxo/avancar-disabled.png" />
+      <img v-else-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" />
       <img v-else-if="nextButtonState == 1" src="../assets/btn-fluxo/avancar-hover.png" />
       <img v-else src="../assets/btn-fluxo/avancar-click.png" />
     </div>
@@ -199,13 +202,12 @@ export default {
       if(this.carouselIndex == 1){
         this.isWoman = false;
         this.carouselIndex = 1.5;
-      }else {
-        this.carouselIndex++;
       }
-      if(this.carousel == 2){
+      if(this.carouselIndex == 2){
         this.isBlack = false;
+        this.carouselIndex++
       }
-      this.firstChoiceState = 2;
+      this.secondChoiceState = 2;
       
     },
     changeStateName(state){
@@ -226,13 +228,40 @@ export default {
       this.prevButtonState = 2
     },
     nextQuestion(){
-      if(this.carouselIndex == 1.5){
-        this.carouselIndex = 2;
-      } else {
-        if(this.carouselIndex < 5)
-          this.carouselIndex++;
+      if(this.isNextAvailable()){
+        if(this.carouselIndex == 1.5){
+          this.carouselIndex = 2;
+        } else {
+          if(this.carouselIndex < 5)
+            this.carouselIndex++;
+        }
+        this.nextButtonState = 2
       }
-      this.nextButtonState = 2
+    },
+    isNextAvailable(){
+      switch(this.carouselIndex){
+        case 1:
+          if(this.isWoman != null){
+            return true
+          }
+          break;
+        case 2:
+          if(this.isBlack != null){
+            return true
+          }
+          break;
+        case 3:
+          if(this.stateName != ''){
+            return true
+          }
+          break;
+        case 1.5:
+          if(this.selectedRelation != ''){
+            return true
+          }
+          break;
+      }
+      return false;
     }
   }  
 }
