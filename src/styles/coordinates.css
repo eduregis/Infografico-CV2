@@ -16,7 +16,7 @@ left: 100px;
 }
 .map {
 position: absolute;
-background-color:#801436;
+background-image: url("../assets/telas/mapa-com-siglas-01.png");
 left: 50px;
 width: 480px;
 height: 480px;
@@ -24,7 +24,7 @@ transition: transform 0.2s;
 }
 .map:hover {
 transform: scale(1.05);
-background-color:brown;
+background-image: url("../assets/telas/mapa-com-siglas-02.png");
 }
 
 .maranhao {
