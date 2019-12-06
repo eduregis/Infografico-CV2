@@ -423,6 +423,7 @@ left: 590px;}
 }
 .state-name {
   position: absolute;
+  font-family: 'MyWebFont', Fallback, sans-serif;
   color: #2D132C;;
   top: 515px;
   width: 235px;
