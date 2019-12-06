@@ -21,10 +21,14 @@ left: 50px;
 width: 480px;
 height: 480px;
 transition: transform 0.2s; 
+cursor: pointer
 }
 .map:hover {
 transform: scale(1.05);
 background-image: url("../assets/telas/mapa-com-siglas-02.png");
+}
+.map-selected {
+    background-image: url("../assets/telas/mapa-com-siglas-03.png") !important;
 }
 
 .maranhao {

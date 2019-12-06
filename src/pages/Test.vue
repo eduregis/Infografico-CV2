@@ -1,6 +1,6 @@
 <template>
   <div class="layout-container"> 
-    <div v-if="carouselIndex > 1" @mouseover="prevButtonState = 1" @mouseleave="prevButtonState = 0" @click="prevQuestion()" class="prev-button">
+    <div v-if="carouselIndex > 1" @mouseover="prevButtonState = 1" @mouseleave="prevButtonState = 0" @click="prevQuestion()" class="prev-button able-button">
       <img v-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" />
       <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" />
       <img v-else src="../assets/btn-fluxo/voltar-click.png" />
@@ -8,12 +8,12 @@
     <!-- Primeira Seção -->
     <div v-show="carouselIndex == 1">
       <img class="title-section-1" src="../assets/textos/voce-se-considera-mulher.png" />
-      <div @mouseover="firstChoiceState = 1" @mouseleave="firstChoiceState = 0" @click="firstChoice()" class="first-choice-button">
+      <div @mouseover="firstChoiceState = 1" @mouseleave="firstChoiceState = 0" @click="firstChoice()" class="first-choice-button able-button">
         <img v-if="firstChoiceState == 0" src="../assets/btn-genero/sim.png" />
         <img v-else-if="firstChoiceState == 1" src="../assets/btn-genero/sim-hover.png" />
         <img v-else src="../assets/btn-genero/sim-click.png" />
       </div>
-      <div @mouseover="secondChoiceState = 1" @mouseleave="secondChoiceState = 0" @click="secondChoice()" class="second-choice-button">
+      <div @mouseover="secondChoiceState = 1" @mouseleave="secondChoiceState = 0" @click="secondChoice()" class="second-choice-button able-button">
         <img v-if="secondChoiceState == 0" src="../assets/btn-genero/nao.png" />
         <img v-else-if="secondChoiceState == 1" src="../assets/btn-genero/nao-hover.png" />
         <img v-else src="../assets/btn-genero/nao-click.png" />
@@ -28,7 +28,7 @@
              @mouseover="relation.state = 1" 
              @mouseleave="relation.state = 0" 
              @click="chooseRelation(relation)" 
-             class="relation"
+             class="relation able-button"
              :class="relation.title">
              <h1 class="relation-title">{{ relation.name }}</h1>
           <img v-if="relation.state == 0" src="../assets/btn-mulher-proxima/mulher-proxima.png" />
@@ -41,12 +41,12 @@
     <div v-show="carouselIndex == 2">
       <img v-if="isWoman" class="title-section-2" src="../assets/textos/qual-sua-etnia.png" />
       <img v-else class="title-section-2" src="../assets/textos/qual-a-etnia-dela.png" />
-      <div @mouseover="firstChoiceState = 1" @mouseleave="firstChoiceState = 0" @click="firstChoice()" class="first-choice-button">
+      <div @mouseover="firstChoiceState = 1" @mouseleave="firstChoiceState = 0" @click="firstChoice()" class="first-choice-button able-button">
         <img v-if="firstChoiceState == 0" src="../assets/btn-etnia/negra.png" />
         <img v-else-if="firstChoiceState == 1" src="../assets/btn-etnia/negra-hover.png" />
         <img v-else src="../assets/btn-etnia/negra-click.png" />
       </div>
-      <div @mouseover="secondChoiceState = 1" @mouseleave="secondChoiceState = 0" @click="secondChoice()" class="second-choice-button">
+      <div @mouseover="secondChoiceState = 1" @mouseleave="secondChoiceState = 0" @click="secondChoice()" class="second-choice-button able-button">
         <img v-if="secondChoiceState == 0" src="../assets/btn-etnia/outro.png" />
         <img v-else-if="secondChoiceState == 1" src="../assets/btn-etnia/outro-hover.png" />
         <img v-else src="../assets/btn-etnia/outro-click.png" />
@@ -92,7 +92,7 @@
     <div v-show="carouselIndex == 5">
       <img src="../assets/telas/tela-oq-fazer.png"/>
     </div>
-    <div v-if="carouselIndex == 4" @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button">
+    <div v-if="carouselIndex == 4" @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button able-button">
       <img v-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" />
       <img v-else-if="nextButtonState == 1" src="../assets/btn-fluxo/avancar-hover.png" />
       <img v-else src="../assets/btn-fluxo/avancar-click.png" />
@@ -451,6 +451,9 @@ left: 590px;}
   position: absolute;
   top: 362px;
   left: 1101px;
+}
+.able-button{
+  cursor: pointer
 }
 .test-button{
   position: absolute;

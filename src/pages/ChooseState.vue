@@ -19,16 +19,16 @@
       <div class="slider-container">
         <div @mouseover="prevButtonState = 1" @mouseleave="prevButtonState = 0" @click="prevYear()" class="prev-button">
           <img v-if="yearIndex == 0" src="../assets/btn-fluxo/voltar-disabled.png" />
-          <img v-else-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" />
-          <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" />
-          <img v-else src="../assets/btn-fluxo/voltar-click.png" />
+          <img v-else-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" class="able-button"/>
+          <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" class="able-button"/>
+          <img v-else src="../assets/btn-fluxo/voltar-click.png" class="able-button"/>
         </div>
         <h2 class="year-number">{{ years[yearIndex] }}</h2>
         <div @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextYear()" class="next-button">
           <img v-if="yearIndex == 10" src="../assets/btn-fluxo/avancar-disabled.png" />
-          <img v-else-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" />
-          <img v-else-if="nextButtonState == 1" src="../assets/btn-fluxo/avancar-hover.png" />
-          <img v-else src="../assets/btn-fluxo/avancar-click.png" />
+          <img v-else-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" class="able-button" />
+          <img v-else-if="nextButtonState == 1" src="../assets/btn-fluxo/avancar-hover.png" class="able-button"/>
+          <img v-else src="../assets/btn-fluxo/avancar-click.png" class="able-button"/>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
     </router-link>
     <div class="region-container">
       <div class="map-container">
-        <div v-for="(state, position) in states" :key="position" class="map" :class="state.name" @click="chooseState(state)"></div>
+        <div v-for="(state, position) in states" :key="position" class="map" :class="[state.name, isSelectedState(state) ? 'map-selected' : '']" @click="chooseState(state)"></div>
       </div>  
     </div>
   </div>
@@ -217,6 +217,13 @@ export default {
     chooseState(state){
       this.selectedState = state;
     },
+    isSelectedState(state){
+      if(state == this.selectedState){
+        return true
+      } else {
+        return false
+      }
+    },
     prevYear(){
       if(this.yearIndex != 0){
         this.yearIndex--
@@ -272,6 +279,9 @@ export default {
   position: absolute;
   left: 250px;
   transform: scale(0.5);  
+}
+.able-button {
+  cursor: pointer;
 }
 .isotype-info-container{
   position: relative;
