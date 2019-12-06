@@ -1,8 +1,7 @@
 <template>
   <div class="layout-container"> 
-    <div @mouseover="prevButtonState = 1" @mouseleave="prevButtonState = 0" @click="prevQuestion()" class="prev-button">
-      <img v-if="carouselIndex == 1" src="../assets/btn-fluxo/voltar-disabled.png" />
-      <img v-else-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" />
+    <div v-if="carouselIndex > 1" @mouseover="prevButtonState = 1" @mouseleave="prevButtonState = 0" @click="prevQuestion()" class="prev-button">
+      <img v-if="prevButtonState == 0" src="../assets/btn-fluxo/voltar.png" />
       <img v-else-if="prevButtonState == 1" src="../assets/btn-fluxo/voltar-hover.png" />
       <img v-else src="../assets/btn-fluxo/voltar-click.png" />
     </div>  
