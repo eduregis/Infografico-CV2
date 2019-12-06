@@ -4,7 +4,7 @@ height: 480px;
 position: relative;
 top: 159px;
 left: 100px;
--webkit-filter: drop-shadow(1px 1px 4px rgba(0,0,0,0.75)) !important;  
+-webkit-filter: drop-shadow(-3px 2px 3px rgba(0,0,0,0.7)) !important;  
 }
 .question-map-container{
     width: 480px;
@@ -12,7 +12,7 @@ left: 100px;
     position: relative;
     top: 129px;
     left: 400px;
-    -webkit-filter: drop-shadow(1px 1px 4px rgba(0,0,0,0.75)) !important; 
+    -webkit-filter: drop-shadow(-3px 2px 3px rgba(0,0,0,0.7)) !important; 
 }
 .map {
 position: absolute;

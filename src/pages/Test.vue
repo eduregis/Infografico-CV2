@@ -40,7 +40,8 @@
     </div>
     <!-- Segunda Seção -->
     <div v-show="carouselIndex == 2">
-      <img class="title-section-2" src="../assets/textos/qual-sua-etnia.png" />
+      <img v-if="isWoman" class="title-section-2" src="../assets/textos/qual-sua-etnia.png" />
+      <img v-else class="title-section-2" src="../assets/textos/qual-a-etnia-dela.png" />
       <div @mouseover="firstChoiceState = 1" @mouseleave="firstChoiceState = 0" @click="firstChoice()" class="first-choice-button">
         <img v-if="firstChoiceState == 0" src="../assets/btn-etnia/negra.png" />
         <img v-else-if="firstChoiceState == 1" src="../assets/btn-etnia/negra-hover.png" />
@@ -88,6 +89,9 @@
       <div v-if="!isLessDangerous() && !isBlack" class="less-dangerous state-name"><h4>{{ states[6].title }}</h4></div>
       <div class="middle-percentage state-name"><h4>{{ selectedState.title }}</h4></div>
       <div v-if="!isMostDangerous()" class="most-dangerous state-name"><h4>{{ states[8].title }}</h4></div>
+    </div>
+    <div v-show="carouselIndex == 5">
+      <img src="../assets/telas/tela-oq-fazer.png"/>
     </div>
     <div v-if="carouselIndex == 4" @mouseover="nextButtonState = 1" @mouseleave="nextButtonState = 0" @click="nextQuestion()" class="next-button">
       <img v-if="nextButtonState == 0" src="../assets/btn-fluxo/avancar.png" />
